@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+    img {
+        width: 234px;
+
+    }
+    h1{
+        font-size: 44px;
+    }
+    i{
+        font-size: 26px;
+    }
+    .right-align {
+			text-align: right;
+		}
+    .middle-align{
+            text-align: center;
+    }
+    .cube {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  transform-style: preserve-3d;
+  animation: rotate-cube 5s infinite linear;
+}
+
+.face {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border: 9px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background-color: #3c9d1f;
+}
+
+
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.face:hover {
+  background-color: #f00;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  transition: background-color 0.5s ease-in-out;
+}
+
+#red-radio:checked ~ .box {
+  background-color: #f00;
+}
+
+#green-radio:checked ~ .box {
+  background-color: #0f0;
+}
+
+
+
+@keyframes rotate-cube {
+  from {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+  to {
+    transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);
+  }
+}
+
+</style>
+
+</head>
+<body>
+
+    <input type="radio" name="color" value="red" id="red-radio">
+<label for="red-radio">Red</label>
+
+<input type="radio" name="color" value="green" id="green-radio">
+<label for="green-radio">Green</label>
+
+<div class="box"></div>
+
+    <div class="cube">
+        <div class="face front">random text</div>
+      </div>
+    <div class="right-align">
+        <h1>נפילת קונסטנטינופול</h1>
+        <p><i>הכיבוש של קונסטנטינופול הוא אחד המאורעות החשובים בהיסטוריה.<br> הרבה מהמסורת התרבותית שלוהעולם חייב למורשת שנשמרה בין חומות העיר קונסטנטינופול.</i></p>
+        <ul>
+          <li>הנפילה של קונסטנטינופול הייתה גם השראתית עבור המוסלמים, העות'מאנים בפרט,<br> והם הצליחו להתפשט על כל יבשת אירופה ולכבוש את העולם המערבי.
+          </li><br>
+          <li>הנפילה של קונסטנטינופול הובילה לסיום האימפריה הביזאנטית,<br> אשר הייתה אחת מהאימפריות המובילות בעולם למעלה מ-1000 שנה.
+        </li><br>
+          <li>נפילת קונסטנטינופול היא אחת האירועים המכריעים בהיסטוריה של העולם,<br> כאשר העיר נפלה בידי הטורקים העות'מאנים בשנת 1453 לספירה.
+        </li>
+        </ul>
+      </div> 
+    <div class="middle-align">
+        <h4>
+            האימפריה הביזאנטית הייתה אחת מהאימפריות המובילות בהיסטוריה,<br> והתפתחה על מנת להשפיע על התרבות והפוליטיקה של אזורי המזרח התיכון ואירופה, עד שנפלה על ידי העות'מאנים בנפילת קונסטנטינופול בשנת 1453.
+        </h4>
+    </div>
+    <img src="images/davalka.jfif">
+</body>
+</html>
