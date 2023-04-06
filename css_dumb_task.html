@@ -3,49 +3,42 @@
 <head>
 
 <style>
-    img {
-        width: 234px;
 
-    }
-    h1{
-        font-size: 44px;
-    }
-    i{
-        font-size: 26px;
-    }
-    .right-align {
-			text-align: right;
-		}
-    .middle-align{
-            text-align: center;
-    }
-    .cube {
+    .cube { /*  אלמנט האב של השלט*/
   position: relative;
-  width: 200px;
-  height: 200px;
-  transform-style: preserve-3d;
-  animation: rotate-cube 5s infinite linear;
+  width: 200px; /*רוחב מרחב השלט */
+  height: 200px;/*גובה מרחב השלט */
+  transform-style: preserve-3d; /*מגדיר מרחב */
+  animation: rotate-sign 5s infinite linear; /*(אחיד כל ה5 שניות)אנימציה של השלט שנמשכת 5 שניות באופן לינארי*/
 }
 
-.face {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  border: 9px solid black;
+.face { /*  אלמנט הבן של השלט*/
+  position: absolute;  /* מיקום אבסולוטי ביחס לאלמנט האב */
+  width: 200px; /*רוחב השלט */
+  height: 200px; /*גובה השלט */
+  border: 9px solid black; /* מסגרת בעובי 9 פיקסלים וצבע שחור */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  background-color: #3c9d1f;
+  justify-content: center; /* מרכז תוכן האלמנט אופקית */
+  align-items: center; /* מרכז תוכן האלמנט אנכית */
+  font-size: 24px; /* גודל הגופן */
+  background-color: #585858; /* צבע רקע כהה */
 }
 
+html, body {
+  height: 100%;
+}
 
+body {
+  display: flex;
+  justify-content: space-evenly; 
+  align-items: center; 
+}
 
 .right {
   transform: rotateY(90deg) translateZ(100px);
 }
 .face:hover {
-  background-color: #f00;
+  background-color: rgb(41, 3, 255);
 }
 
 .box {
@@ -53,19 +46,15 @@
   height: 200px;
   background-color: #ccc;
   transition: background-color 0.5s ease-in-out;
+
+}
+.button-container button {
+  display: block;
+  margin-bottom: 250px;
+  
 }
 
-#red-radio:checked ~ .box {
-  background-color: #f00;
-}
-
-#green-radio:checked ~ .box {
-  background-color: #0f0;
-}
-
-
-
-@keyframes rotate-cube {
+@keyframes rotate-sign {
   from {
     transform: rotateX(0) rotateY(0) rotateZ(0);
   }
@@ -74,39 +63,76 @@
   }
 }
 
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 5px solid #000000;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + span {
+  background-color: #d80d0d;
+
+}
+.my-list {
+  list-style: none;
+  font-family: Arial, sans-serif;
+}
+.my-list + div {
+  color: blue;
+  font-size: 20px;
+}
+.my-list li {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+}
+
+
+
 </style>
 
 </head>
 <body>
-
-    <input type="radio" name="color" value="red" id="red-radio">
-<label for="red-radio">Red</label>
-
-<input type="radio" name="color" value="green" id="green-radio">
-<label for="green-radio">Green</label>
-
-<div class="box"></div>
-
     <div class="cube">
         <div class="face front">random text</div>
       </div>
-    <div class="right-align">
-        <h1>נפילת קונסטנטינופול</h1>
-        <p><i>הכיבוש של קונסטנטינופול הוא אחד המאורעות החשובים בהיסטוריה.<br> הרבה מהמסורת התרבותית שלוהעולם חייב למורשת שנשמרה בין חומות העיר קונסטנטינופול.</i></p>
-        <ol>
-          <li>הנפילה של קונסטנטינופול הייתה גם השראתית עבור המוסלמים, העות'מאנים בפרט,<br> והם הצליחו להתפשט על כל יבשת אירופה ולכבוש את העולם המערבי.
-          </li><br>
-          <li>הנפילה של קונסטנטינופול הובילה לסיום האימפריה הביזאנטית,<br> אשר הייתה אחת מהאימפריות המובילות בעולם למעלה מ-1000 שנה.
-        </li><br>
-          <li>נפילת קונסטנטינופול היא אחת האירועים המכריעים בהיסטוריה של העולם,<br> כאשר העיר נפלה בידי הטורקים העות'מאנים בשנת 1453 לספירה.
-        </li>
-        </ol>
-      </div> 
-    <div class="middle-align">
-        <h4>
-            האימפריה הביזאנטית הייתה אחת מהאימפריות המובילות בהיסטוריה,<br> והתפתחה על מנת להשפיע על התרבות והפוליטיקה של אזורי המזרח התיכון ואירופה, עד שנפלה על ידי העות'מאנים בנפילת קונסטנטינופול בשנת 1453.
-        </h4>
+      <div class="button-container">
+      <label>
+        <input type="radio" name="color">
+        <span>123</span>
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="color">
+        <span>456</span>
+      </label>
+      <br>
+      <label>
+        <input type="radio" name="color">
+        <span>789</span>
+      </label>
     </div>
-    <img src="images/davalka.jfif">
+    <ul class="my-list">
+      <li style="color: green;">אלמנט ראשון</li>
+      <li style="color: green;">אלמנט שני</li>
+      <li style="color: green;">אלמנט שלישי</li>
+      <li style="color: pink;">אלמנט רביעי</li>
+      <li style="color: green;">אלמנט חמישי</li>
+    </ul>
+      <div>
+        <p>
+          gfgfgfgfg
+        </p>
+      </div>
 </body>
 </html>
