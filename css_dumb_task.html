@@ -1,111 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<style>
-
-    .cube { /*  אלמנט האב של השלט*/
-  position: relative;
-  width: 200px; /*רוחב מרחב השלט */
-  height: 200px;/*גובה מרחב השלט */
-  transform-style: preserve-3d; /*מגדיר מרחב */
-  animation: rotate-sign 5s infinite linear; /*(אחיד כל ה5 שניות)אנימציה של השלט שנמשכת 5 שניות באופן לינארי*/
-}
-
-.face { /*  אלמנט הבן של השלט*/
-  position: absolute;  /* מיקום אבסולוטי ביחס לאלמנט האב */
-  width: 200px; /*רוחב השלט */
-  height: 200px; /*גובה השלט */
-  border: 9px solid black; /* מסגרת בעובי 9 פיקסלים וצבע שחור */
-  display: flex;
-  justify-content: center; /* מרכז תוכן האלמנט אופקית */
-  align-items: center; /* מרכז תוכן האלמנט אנכית */
-  font-size: 24px; /* גודל הגופן */
-  background-color: #585858; /* צבע רקע כהה */
-}
-
-html, body {
-  height: 100%;
-}
-
-body {
-  display: flex;
-  justify-content: space-evenly; 
-  align-items: center; 
-}
-
-.right {
-  transform: rotateY(90deg) translateZ(100px);
-}
-.face:hover {
-  background-color: rgb(41, 3, 255);
-}
-
-.box {
-  width: 200px;
-  height: 200px;
-  background-color: #ccc;
-  transition: background-color 0.5s ease-in-out;
-
-}
-.button-container button {
-  display: block;
-  margin-bottom: 250px;
-  
-}
-
-@keyframes rotate-sign {
-  from {
-    transform: rotateX(0) rotateY(0) rotateZ(0);
-  }
-  to {
-    transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);
-  }
-}
-
-input[type="radio"] {
-  display: none;
-}
-
-label {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 5px solid #000000;
-  cursor: pointer;
-}
-
-input[type="radio"]:checked + span {
-  background-color: #d80d0d;
-
-}
-.my-list {
-  list-style: none;
-  font-family: Arial, sans-serif;
-}
-.my-list + div {
-  color: blue;
-  font-size: 20px;
-}
-.my-list li {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  color: white;
-  font-size: 20px;
-  text-align: center;
-}
-
-
-
-</style>
-
+  <link rel="stylesheet" type="text/css" href="css_dumb_task.css">
 </head>
 <body>
+  <header> 
+    <nav>
+      <ul>
+        <li><a href="C:\Users\marat\Desktop\hafifa_marat1\konstantinopol.html">konstantinopol</a></li>
+        <li><a href="https://instagram.com/mrt_.kh">me</a></li>
+      </ul>
+    </nav> 
+  </header>
     <div class="cube">
-        <div class="face front">random text</div>
-      </div>
+       <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"> <div class="face front">random text</div></div></a>
       <div class="button-container">
       <label>
         <input type="radio" name="color">
@@ -123,16 +31,13 @@ input[type="radio"]:checked + span {
       </label>
     </div>
     <ul class="my-list">
-      <li style="color: green;">אלמנט ראשון</li>
-      <li style="color: green;">אלמנט שני</li>
-      <li style="color: green;">אלמנט שלישי</li>
-      <li style="color: pink;">אלמנט רביעי</li>
-      <li style="color: green;">אלמנט חמישי</li>
+      <li id="my-list1">אלמנט ראשון</li>
+      <li id="my-list2">אלמנט שני</li>
+      <li id="my-list3">אלמנט שלישי</li>
+      <li id="my-list4">אלמנט רביעי</li>
+      <li id="my-list5">אלמנט חמישי</li>
     </ul>
-      <div>
-        <p>
-          gfgfgfgfg
-        </p>
-      </div>
+
+  
 </body>
 </html>

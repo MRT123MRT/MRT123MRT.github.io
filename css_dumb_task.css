@@ -1,0 +1,141 @@
+
+
+header {
+  width: 100%;  /* רוחב הטופ בר */
+  background-color: #333;  /* צבע הטופ בר */
+  position: fixed;/*  ממקם את הטופ בר שלא יזוז */
+  top: 0;/* ממקם את הטופ בר הכי למעלה*/
+  z-index: 10;/* ממקם את הבר מעל כל השאר האלמנטים*/
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+nav li a {
+  color: #fff;
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+nav li a:hover {
+  background-color: #555;
+}
+
+nav li.active a {
+  background-color: #4b4a4a;
+}
+  
+    .cube { /*  אלמנט האב של השלט*/
+  position: relative;
+  width: 200px; /*רוחב מרחב השלט */
+  height: 200px;/*גובה מרחב השלט */
+  transform-style: preserve-3d; /*מגדיר מרחב */
+  animation: rotate-sign 5s infinite linear; /*(אחיד כל ה5 שניות)אנימציה של השלט שנמשכת 5 שניות באופן לינארי*/
+  align-items: center; 
+}
+
+.face { /*  אלמנט הבן של השלט*/
+  position: absolute;  /* מיקום אבסולוטי ביחס לאלמנט האב */
+  width: 200px; /*רוחב השלט */
+  height: 200px; /*גובה השלט */
+  border: 9px solid black; /* מסגרת בעובי 9 פיקסלים וצבע שחור */
+  display: flex;
+  justify-content: center; /* מרכז תוכן האלמנט אופקית */
+  align-items: center; /* מרכז תוכן האלמנט אנכית */
+  font-size: 24px; /* גודל הגופן */
+  background-color: #585858; /* צבע רקע כהה */
+}
+
+body, html {
+  height: 100%;
+}
+body:not(header){
+  display: flex; 
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(100px);
+}
+.face:hover {
+  background-color: rgb(41, 3, 255);
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #ccc;
+  transition: background-color 0.5s ease-in-out;
+
+}
+.button-container button {
+  display: block;
+  margin-bottom: 250px;
+  
+}
+
+@keyframes rotate-sign {
+  from {
+    transform: rotateX(0) rotateY(0) rotateZ(0);
+  }
+  to {
+    transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);
+  }
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 5px solid #000000;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + span {
+  background-color: #d80d0d;
+
+}
+.my-list {
+  list-style: none;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.my-list li {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.my-list li:not(#my-list4) {
+  color: green;
+}
+#my-list4{
+  color: pink;
+}
+
+.my-list + div {
+  color: blue;
+  font-size: 20px;
+}
