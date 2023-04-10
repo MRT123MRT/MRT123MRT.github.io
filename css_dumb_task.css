@@ -1,11 +1,134 @@
 
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: white;
+}
+
+
+
+.labelText {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000;
+  margin: 0px;
+  padding: 0;
+  text-align: center;
+
+}
+
+.splashContainer {
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: white;
+}
+
+.logo {
+  width: 15rem;
+  height: 15rem;
+  cursor: pointer;
+  animation: rotate-sign 5s linear infinite;
+  transition: all 0.5s linear;
+  object-fit: contain;
+}
+
+.hide {
+  transition: 1s;
+  z-index: 11;
+}
+
+.hide:checked~label, .hide:checked~img, .hide:checked~h1, .hide:checked~div * {
+  animation: splash-dissapear  0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes rotate-sign {
+  from {
+      transform:rotateY(0);
+  }
+
+  to {
+      transform:rotateY(360deg);
+  }
+}
+
+@keyframes splash-dissapear {
+  0% {
+
+  }
+
+  99% {
+    opacity: 0;
+    transform: scale(10);
+    pointer-events: none;
+  }
+
+  100% {
+    display: none;
+    opacity: 0;
+    transform: scale(0);
+    pointer-events: none;
+  }
+}
+
+
+.my-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.my-list li {
+  margin: 5px 0;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+}
+
+.my-list li:not(#my-list4) {
+  color:#0D733A ;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#my-list4{
+  margin-top: 10px;
+  padding: 6px;
+  color: #D93771;
+  background-color:#15479D;
+  width: fit-content;
+  
+
+}
+
+.my-list + div {
+  color: #15479D ;
+  font-size: 20px;
+}
+ 
 
 header {
   width: 100%;  /* רוחב הטופ בר */
   background-color: #333;  /* צבע הטופ בר */
   position: fixed;/*  ממקם את הטופ בר שלא יזוז */
   top: 0;/* ממקם את הטופ בר הכי למעלה*/
-  z-index: 10;/* ממקם את הבר מעל כל השאר האלמנטים*/
+  z-index: 9;/* ממקם את הבר מעל כל השאר האלמנטים*/
+  height: 5vh;
+  font-size: large;
+  left: 0;
+  margin: 0;
 }
 
 nav ul {
@@ -36,106 +159,267 @@ nav li.active a {
   background-color: #4b4a4a;
 }
   
-    .cube { /*  אלמנט האב של השלט*/
-  position: relative;
-  width: 200px; /*רוחב מרחב השלט */
-  height: 200px;/*גובה מרחב השלט */
-  transform-style: preserve-3d; /*מגדיר מרחב */
-  animation: rotate-sign 5s infinite linear; /*(אחיד כל ה5 שניות)אנימציה של השלט שנמשכת 5 שניות באופן לינארי*/
-  align-items: center; 
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
 }
 
-.face { /*  אלמנט הבן של השלט*/
-  position: absolute;  /* מיקום אבסולוטי ביחס לאלמנט האב */
-  width: 200px; /*רוחב השלט */
-  height: 200px; /*גובה השלט */
-  border: 9px solid black; /* מסגרת בעובי 9 פיקסלים וצבע שחור */
-  display: flex;
-  justify-content: center; /* מרכז תוכן האלמנט אופקית */
-  align-items: center; /* מרכז תוכן האלמנט אנכית */
-  font-size: 24px; /* גודל הגופן */
-  background-color: #585858; /* צבע רקע כהה */
+
+:root {
+  --bounceLogoW: 10vw;
+  --bounceLogoH: 10vw;
+
+  --baseSpeedX: 16s;
+  --baseSpeedY: 9s;
 }
 
-body, html {
-  height: 100%;
-}
-body:not(header){
-  display: flex; 
-  justify-content: space-evenly;
-  align-items: center;
-}
 
-.right {
-  transform: rotateY(90deg) translateZ(100px);
-}
-.face:hover {
-  background-color: rgb(41, 3, 255);
-}
-
-.box {
-  width: 200px;
-  height: 200px;
-  background-color: #ccc;
-  transition: background-color 0.5s ease-in-out;
-
-}
-.button-container button {
-  display: block;
-  margin-bottom: 250px;
-  
-}
-
-@keyframes rotate-sign {
-  from {
-    transform: rotateX(0) rotateY(0) rotateZ(0);
-  }
-  to {
-    transform: rotateX(0deg) rotateY(360deg) rotateZ(0deg);
-  }
-}
-
-input[type="radio"] {
-  display: none;
-}
-
-label {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  border: 5px solid #000000;
+.bounce-logo { 
   cursor: pointer;
+  width: var(--bounceLogoW);
+  height: var(--bounceLogoH);
+  object-fit: contain;
+
 }
 
-input[type="radio"]:checked + span {
-  background-color: #d80d0d;
 
-}
-.my-list {
-  list-style: none;
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+.bnc-lr-sp1 {
+  animation: lr var(--baseSpeedX) linear infinite alternate;
 }
 
-.my-list li {
-  margin: 10px 0;
-  padding: 10px;
+.bnc-tb-sp1 {
+  animation: tb var(--baseSpeedY) linear infinite alternate;
+}
+
+
+.bnc-lr-sp2 {
+  animation: lr calc(var(--baseSpeedX) / 5) linear infinite alternate;
+}
+
+.bnc-tb-sp2 {
+  animation: tb calc(var(--baseSpeedY) / 5) linear infinite alternate;
+}
+
+
+
+
+.bnc-lr-sp3 {
+  animation: lr calc(var(--baseSpeedX) / 10) linear infinite alternate;
+}
+
+.bnc-tb-sp3 {
+  animation: tb calc(var(--baseSpeedY) / 10) linear infinite alternate;
+}
+
+
+
+.bnc-lr-sp4 {
+  animation: lr calc(var(--baseSpeedX) / 17) linear infinite alternate;
+}
+
+.bnc-tb-sp4 {
+  animation: tb calc(var(--baseSpeedY) / 17) linear infinite alternate;
+}
+
+
+.bnc-lr-sp4-1 {
+  animation: lr calc(var(--baseSpeedX) / 20) linear infinite alternate;
+}
+
+.bnc-tb-sp4-1 {
+  animation: tb calc(var(--baseSpeedY) / 20) linear infinite alternate;
+}
+
+
+.bnc-lr-sp4-2 {
+  animation: lr calc(var(--baseSpeedX) / 25) linear infinite alternate;
+}
+
+.bnc-tb-sp4-2 {
+  animation: tb calc(var(--baseSpeedY) / 25) linear infinite alternate;
+}
+
+
+@keyframes lr {
+  from {
+      transform: translateX(0);
+  }
+
+  to {
+      transform: translateX(calc(100vw - var(--bounceLogoW)));
+  }
+}
+
+@keyframes tb {
+  from {
+      transform: translateY(0);
+  }
+
+  to {
+      transform: translateY(calc(95vh - var(--bounceLogoH)));
+  }
+}
+
+.radioContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2em;
+
+}
+
+.hdContainer {
+  position: absolute;
+  top: 5vh;
+  left: 0px;
+  width: var(--bounceLogoW);
+  height: var(--bounceLogoH);
+
+}
+
+.hideSP1 {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hideSP2 {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hideSP3 {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.hideSP4 {
+  pointer-events: none;
+  opacity: 0;
+}
+
+#sp1:checked~.hideSP1 {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+#sp2:checked~.hideSP2 {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+#sp3:checked~.hideSP3 {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+#sp4:checked~.hideSP4 {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.visualSP1, .visualSP2, .visualSP3, .visualSP4 {
+  padding: 10px 20px;
   border-radius: 5px;
-  font-size: 20px;
-  text-align: center;
-  background-color: #f0f0f0;
+  margin: 5px;
+  background-color: #e6e4e4;
 }
 
-.my-list li:not(#my-list4) {
-  color: green;
+#sp1:checked~.visualSP1 {
+  background-color: #2760B7;
+  color: white;
+  font-weight: 700;
 }
-#my-list4{
-  color: pink;
+.visualSP1:hover{
+  background-color: #899fc0;
 }
 
-.my-list + div {
-  color: blue;
-  font-size: 20px;
+#sp2:checked~.visualSP2 {
+  background-color: #21942d;
+  color: white;
+  font-weight: 700;
 }
+.visualSP2:hover{
+  background-color:#99be9d;
+}
+
+
+#sp3:checked~.visualSP3 {
+  background-color: #FFD600;
+  color: black;
+  font-weight: 700;
+}
+.visualSP3:hover{
+  background-color: #fff4c0;
+
+}
+
+
+#sp4:checked~.visualSP4 {
+  background-color: #FC003C;
+  color: white;
+  font-weight: 700;
+}
+.visualSP4:hover{
+  background-color: #e6a8b6;
+}
+
+
+.rotateAppearRight {
+  opacity: 0;
+  width: 10rem;
+  height: 10rem;
+  transform: rotateZ(0);
+}
+
+#sp4:checked~.rotateAppearRight {
+  opacity: 1;
+  width: 10rem;
+  height: 10rem;
+  animation: rotateAppearRight 1s ease-in-out;
+  transform: rotateZ(45deg);
+}
+
+
+
+
+.rotateAppearLeft {
+  opacity: 0;
+  width: 10rem;
+  height: 10rem;
+  transform: rotateZ(0);
+}
+
+#sp4:checked~.rotateAppearLeft {
+  opacity: 1;
+  width: 10rem;
+  height: 10rem;
+  animation: rotateAppearLeft 1s ease-in-out;
+  transform: rotateZ(-45deg);
+}
+
+
+@keyframes rotateAppearRight {
+  from {
+      transform: rotateX(90deg);
+  }
+
+  to {
+      transform: rotateX(0);
+      transform: rotateZ(45deg);
+  }
+}
+
+@keyframes rotateAppearLeft {
+  from {
+      transform: rotateX(90deg);
+  }
+
+  to {
+      transform: rotateX(0);
+      transform: rotateZ(-45deg);
+  }
+}
+
+
