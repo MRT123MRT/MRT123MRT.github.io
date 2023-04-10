@@ -1,15 +1,17 @@
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
-header {
+h1 {
     background-color: #333;
     color: #fff;
     padding: 10px;
     text-align: center;
+    margin-top: 60px;
+    border-radius:  10px ;
 }
 main {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,10 +22,7 @@ img {
     height: auto;
     width: auto;
 }
-h1 {
-    font-size: 36px;
-    margin: 0;
-}
+
 p {
     font-style: italic;
     margin: 0;
@@ -57,3 +56,47 @@ h4 {
     line-height: 1.5;
     margin-bottom: 20px;
 }
+header {
+    width: 100%;  /* רוחב הטופ בר */
+    background-color: #333;  /* צבע הטופ בר */
+    position: fixed;/*  ממקם את הטופ בר שלא יזוז */
+    top: 0;/* ממקם את הטופ בר הכי למעלה*/
+    z-index: 9;/* ממקם את הבר מעל כל השאר האלמנטים*/
+    height: 5vh;
+    left: 0;
+    margin: 0;
+    font-size: large;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  nav li {
+    display: inline-block;
+    margin-right: 20px;
+
+  }
+  nav{
+    height: 100%;
+  }
+  nav li a {
+    color: #fff;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    height: 100%;
+  }
+  
+  nav li a:hover {
+    background-color: #555;
+  }
+  
+  nav li.active a {
+    background-color: #4b4a4a;
+  }

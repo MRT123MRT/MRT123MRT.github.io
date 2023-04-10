@@ -18,6 +18,7 @@
   margin: 0px;
   padding: 0;
   text-align: center;
+  background-color:#e6e4e4 ;
 
 }
 
@@ -30,8 +31,11 @@
   background-color: white;
 }
 
+.logo_text{
+  animation: rotate-sign 5s linear infinite;
+}
 .logo {
-  width: 15rem;
+  
   height: 15rem;
   cursor: pointer;
   animation: rotate-sign 5s linear infinite;
@@ -103,9 +107,10 @@
   justify-content: center;
   align-items: center;
 }
-#my-list4{
+
+li:nth-child(4){
   margin-top: 10px;
-  padding: 6px;
+  padding: 6px 10px;
   color: #D93771;
   background-color:#15479D;
   width: fit-content;
@@ -299,7 +304,7 @@ body{
   opacity: 0;
 }
 
-#sp1:checked~.hideSP1 {
+#sp1:checked ~ .hideSP1 {
   pointer-events: auto;
   opacity: 1;
 }
@@ -373,7 +378,7 @@ body{
   transform: rotateZ(0);
 }
 
-#sp4:checked~.rotateAppearRight {
+#sp4:checked~ .rotateAppearRight {
   opacity: 1;
   width: 10rem;
   height: 10rem;
@@ -423,3 +428,6 @@ body{
 }
 
 
+.labelText:hover {
+  background-color: #D93771;
+}
