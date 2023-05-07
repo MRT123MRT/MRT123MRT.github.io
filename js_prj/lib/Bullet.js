@@ -1,7 +1,8 @@
 import BaseGameObject from "./BaseGameObject.js";
+import Player from "./Player.js";
 
 export default class Bullet extends BaseGameObject {
-    constructor(game, parentType, color, speed, x, y) {
+    constructor(game, parentType, speed, x, y) {
         super(game);
 
         this.type = "Bullet";
@@ -9,14 +10,19 @@ export default class Bullet extends BaseGameObject {
 
         this.x = x;
         this.y = y;
-        this.width = 20;
-        this.height = 5;
-        this.color = color;
-
-
+        this.width = 60;
+        this.height = 15;
+        
+    
         this.speedX = speed;
+        this.bulletImage =new Image();
+        this.bulletImage.src =(parentType!=="Player")?'../images/bullet_yellow.jpg':'../images/bullet_pink.jpg';
+
     }
 
+
+
+    
     inCollisionWith(gameObject) {
         if (gameObject.x < this.x + this.width &&
             gameObject.x + gameObject.width > this.x &&
@@ -28,9 +34,10 @@ export default class Bullet extends BaseGameObject {
     onCollision(gameObject) {
        
 
-        if (gameObject.type !== this.parentType) {
+        if (gameObject.type !== this.parentType && this.parentType !== gameObject.parentType  ) {
             this.game.removeGameObject(this);
         }
+        
     }
 
     update() {
@@ -43,9 +50,12 @@ export default class Bullet extends BaseGameObject {
     }
 
     draw(ctx) {
+        ctx.save();
         super.draw(ctx);
 
-        ctx.fillStyle = this.color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        //ctx.fillStyle = this.color;
+        //ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.drawImage(this.bulletImage,this.x, this.y,this.width, this.height);
+        ctx.restore();
     }
 }

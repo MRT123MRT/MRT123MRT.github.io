@@ -2,12 +2,38 @@
 <html>
 
 <head>
-    <title>My Game</title>
-    <link rel="stylesheet" t`ype="text/css" href="index.css" />
+  <title>My Game</title>
+  <link rel="stylesheet" t`ype="text/css" href="index.css" />
 </head>
 <div class="container">
-    <script src="/js_prj/script/index.js" type="module"></script>
-    <canvas id="canvas"></canvas>
+  <script src="../script/index.js" type="module"></script>
+  <canvas id="canvas"></canvas>
+</div>
+
+
+<div class="popup hidden" id="resumePopup">
+  <div class="popup-box">
+    <p>Do you want to resume your game?</p>
+    <button class="btn btn-resume" id="resumeBtn">Resume</button>
+  </div>
+</div>
+
+
+<div class="popup hidden" id="gameOverPopup">
+  <div class="popup-box">
+    <p>u lose</p>
+    <p>Do you want to restart your game?</p>
+
+    <button class="btn btn-resume" id="restarBtn" onclick="location.reload()">Restart</button>
+  </div>
+</div>
+
+
+<div class="popup" id="startPopup">
+  <div class="popup-box">
+    <p>Do you want to start your game?</p>
+    <button class="btn btn-resume" id="startBtn">START!</button>
+  </div>
 </div>
 
 </html>

@@ -1,5 +1,7 @@
 import BaseGameObject from "../lib/BaseGameObject.js";
 import Bullet from "./Bullet.js";
+import BattleBlock from "./BattleBlock.js";
+
 
 export default class Player extends BaseGameObject {
     constructor(game, controls, color, lives) {
@@ -27,6 +29,17 @@ export default class Player extends BaseGameObject {
 
         this.lastBullet = new Date().getTime();
         this.bulletDelay = 70;
+        
+        this.playerImage =new Image();
+        this.playerImage.src ='../images/canon.png';
+        this.spriteWidth= 98;
+        this.spriteHeight= 127;
+        this.frame = 12;
+        this.staggerFrame = 1;
+        this.gameFrame = 0;
+
+
+        
     }
 
     inCollisionWith(gameObject) {
@@ -41,22 +54,34 @@ export default class Player extends BaseGameObject {
     onCollision(gameObject) {
         if (gameObject.type === "Bullet" && gameObject.parentType !== this.type ) {
             this.lives--;
+            
 
             if (this.lives <= 0) {
                 this.game.removeGameObject(this);
-                //this.game.gameOver();
+                this.game.gameOver();
+
+                
             }
         }
     }
 
     update() {
         super.update();
-
+        
         if (this.game.inputTracker.isKeyDown("e") && (new Date().getTime() - this.lastBullet) > this.bulletDelay) {
             this.lastBullet = new Date().getTime();
-            this.game.addGameObject(new Bullet(this.game, this.type, "#ff9146", 10, this.x + this.width + 10, this.y + this.height/2));
+            //this.frame = 0;
+            this.animation(this.game.ctx);
+            this.game.addGameObject(new Bullet(this.game, this.type, 10, this.x + this.width - 45, this.y + this.height/2 +6));
+            console.log("AHAAAAAAA")
+
             
         }   
+        if(!this.game.inputTracker.isKeyDown("e")&& this.frame!==0)
+            this.animation(this.game.ctx);
+
+        if(!this.game.inputTracker.isKeyDown("e")&& this.frame===0)
+           this.frame =12;
 
 
         if (this.game.inputTracker.isKeyDown(this.controls.right) && this.game.inputTracker.isKeyUp(this.controls.left))
@@ -92,28 +117,43 @@ export default class Player extends BaseGameObject {
 
         if (this.x < 0)
             this.x = 0;
-        else if ((this.x + this.width) > this.game.canvas.width)
-            this.x = this.game.canvas.width - this.width;
+        else if ((this.x + this.width) > this.game.canvas.width/3)
+            this.x = this.game.canvas.width/3- this.width;
+
         if (this.y < 0)
             this.y = 0;
         else if ((this.y + this.height) > this.game.canvas.height)
             this.y = this.game.canvas.height - this.height;
+        
 
+    }
+
+    animation(ctx)
+    {   
+
+        if(this.gameFrame % this.staggerFrame ==0){
+            if(this.frame<12)
+                this.frame++;
+            else 
+                this.frame = 0;
+            
+        }
+        this.gameFrame++;
     }
 
     draw(ctx) {
         super.draw(ctx);
 
-        this.game.ctx.fillStyle = this.color;
-        this.game.ctx.fillRect(this.x, this.y, this.width, this.height);
+
 
         this.game.ctx.font = "32px Roboto";
         this.game.ctx.fillStyle = "white";
 
-        this.game.ctx.textAlign = "center";
-        this.game.ctx.textBaseline = "middle";
 
-        this.game.ctx.fillText(this.lives, this.x + (this.width / 2), this.y + (this.height / 2))
+        ctx.drawImage(this.playerImage,0,this.frame * this.spriteHeight,this.spriteWidth,this.spriteHeight, this.x, this.y, this.spriteWidth,this.spriteHeight)
+        console.log(this.frame)
+        ctx.fillText("Lives:"+this.lives, 200 ,60);
+        ctx.fillText("Kills:"+this.game.enemyCount, 200 ,100);
 
     }
 }

@@ -6,19 +6,21 @@ export default class InputTracker {
     }
 
     keyDown(e) {
-        this.keys[e.key] = true;                          
+        console.log(e.key.toLowerCase());
+        this.keys[e.key.toLowerCase()] = true;    
+                             
     }
     
     keyUp(e) {
-        this.keys[e.key] = false;
+        this.keys[e.key.toLowerCase()] = false;
     }
 
     isKeyDown(key) {
-        return this.keys[key];
+        return this.keys[key.toLowerCase()];
     }
 
     isKeyUp(key) {
-        return !this.isKeyDown(key);
+        return !this.isKeyDown(key.toLowerCase());
     }
 
 }
