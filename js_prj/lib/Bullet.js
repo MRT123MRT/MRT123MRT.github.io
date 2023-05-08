@@ -12,17 +12,17 @@ export default class Bullet extends BaseGameObject {
         this.y = y;
         this.width = 60;
         this.height = 15;
-        
-    
+
+
         this.speedX = speed;
-        this.bulletImage =new Image();
-        this.bulletImage.src =(parentType!=="Player")?'../images/bullet_yellow.jpg':'../images/bullet_pink.jpg';
+        this.bulletImage = new Image();
+        this.bulletImage.src = (parentType !== "Player") ? '../images/bullet_yellow.jpg' : '../images/bullet_pink.jpg';
 
     }
 
 
 
-    
+
     inCollisionWith(gameObject) {
         if (gameObject.x < this.x + this.width &&
             gameObject.x + gameObject.width > this.x &&
@@ -32,12 +32,12 @@ export default class Bullet extends BaseGameObject {
         }
     }
     onCollision(gameObject) {
-       
 
-        if (gameObject.type !== this.parentType && this.parentType !== gameObject.parentType  ) {
+
+        if (gameObject.type !== this.parentType && this.parentType !== gameObject.parentType) {
             this.game.removeGameObject(this);
         }
-        
+
     }
 
     update() {
@@ -55,7 +55,7 @@ export default class Bullet extends BaseGameObject {
 
         //ctx.fillStyle = this.color;
         //ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.drawImage(this.bulletImage,this.x, this.y,this.width, this.height);
+        ctx.drawImage(this.bulletImage, this.x, this.y, this.width, this.height);
         ctx.restore();
     }
 }

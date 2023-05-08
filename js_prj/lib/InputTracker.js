@@ -7,10 +7,10 @@ export default class InputTracker {
 
     keyDown(e) {
         console.log(e.key.toLowerCase());
-        this.keys[e.key.toLowerCase()] = true;    
-                             
+        this.keys[e.key.toLowerCase()] = true;
+
     }
-    
+
     keyUp(e) {
         this.keys[e.key.toLowerCase()] = false;
     }

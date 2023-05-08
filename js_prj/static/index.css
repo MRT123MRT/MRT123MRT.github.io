@@ -1,29 +1,31 @@
-
 @import url('http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300ita‌​lic,400italic,500,500italic,700,700italic,900italic,900');
+
 html, body, html * {
   font-family: 'Roboto', sans-serif;
 }
 
 
 body {
-    background-color: #000;
-    
-    font-family: 'KulminoituvaRegular';
-    font-size: 1.5em;
-    text-align: center;
+  background-color: #000;
+
+  font-family: 'KulminoituvaRegular';
+  font-size: 1.5em;
+  text-align: center;
 }
+
 .container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 5;
-}  
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -76,12 +78,12 @@ body {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-  text-align: center; 
+  text-align: center;
 }
 
 /* Style for the buttons */
 .btn {
-  
+
   color: rgb(0, 0, 0);
   padding: 10px 20px;
   border: none;

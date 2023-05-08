@@ -7,6 +7,7 @@
 </head>
 <div class="container">
   <script src="../script/index.js" type="module"></script>
+
   <canvas id="canvas"></canvas>
 </div>
 
@@ -20,20 +21,34 @@
 
 
 <div class="popup hidden" id="gameOverPopup">
+  <div class="fireworks hidden new_record" id="fireworks">
+    <img src="..\images\fireworks.gif">
+  </div>
   <div class="popup-box">
     <p>u lose</p>
+    <p class="new_record hidden" id="new_record_text"> but u have a new record</p>
     <p>Do you want to restart your game?</p>
-
     <button class="btn btn-resume" id="restarBtn" onclick="location.reload()">Restart</button>
+  </div>
+  <div class="fireworks hidden new_record" id="fireworks1">
+    <img src="..\images\fireworks1.gif">
   </div>
 </div>
 
-
+</div>
 <div class="popup" id="startPopup">
   <div class="popup-box">
     <p>Do you want to start your game?</p>
+    <div id="instructions">
+      <p>use E to shoot and arrows to move</p>
+    </div>
     <button class="btn btn-resume" id="startBtn">START!</button>
   </div>
 </div>
+<script>
+  if (parseInt(localStorage.getItem("record")) > 0)
+    document.getElementById("instructions").classList.add("hidden");
+  console.log("aaaa")
+</script>
 
 </html>

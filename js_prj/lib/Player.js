@@ -8,7 +8,7 @@ export default class Player extends BaseGameObject {
         super(game);
 
         this.type = "Player";
-
+        this.record = parseInt(localStorage.getItem("record")) || 0;
         this.controls = controls;
 
         this.x = window.innerWidth - 2400;
@@ -27,19 +27,21 @@ export default class Player extends BaseGameObject {
         this.accelerationY = 1.5;
         this.speedY = 0;
 
-        this.lastBullet = new Date().getTime();
+        this.lastBulletTime = new Date().getTime();
         this.bulletDelay = 70;
-        
-        this.playerImage =new Image();
-        this.playerImage.src ='../images/canon.png';
-        this.spriteWidth= 98;
-        this.spriteHeight= 127;
+        this.bulletSpeed = 10;
+
+        this.playerImage = new Image();
+        this.playerImage.src = '../images/canon.png';
+        this.spriteWidth = 98;
+        this.spriteHeight = 127;
         this.frame = 12;
         this.staggerFrame = 1;
         this.gameFrame = 0;
+        this.maxAnimationFrame = 13;
 
 
-        
+
     }
 
     inCollisionWith(gameObject) {
@@ -52,36 +54,36 @@ export default class Player extends BaseGameObject {
     }
 
     onCollision(gameObject) {
-        if (gameObject.type === "Bullet" && gameObject.parentType !== this.type ) {
+        if (gameObject.type === "Bullet" && gameObject.parentType !== this.type) {
             this.lives--;
-            
+
 
             if (this.lives <= 0) {
-                this.game.removeGameObject(this);
+
                 this.game.gameOver();
 
-                
+
             }
         }
     }
 
     update() {
         super.update();
-        
-        if (this.game.inputTracker.isKeyDown("e") && (new Date().getTime() - this.lastBullet) > this.bulletDelay) {
-            this.lastBullet = new Date().getTime();
+
+        if (this.game.inputTracker.isKeyDown("e") && (new Date().getTime() - this.lastBulletTime) > this.bulletDelay) {
+            this.lastBulletTime = new Date().getTime();
             //this.frame = 0;
             this.animation(this.game.ctx);
-            this.game.addGameObject(new Bullet(this.game, this.type, 10, this.x + this.width - 45, this.y + this.height/2 +6));
+            this.game.addGameObject(new Bullet(this.game, this.type, this.bulletSpeed, this.x + this.width - 45, this.y + this.height / 2 + 6));
             console.log("AHAAAAAAA")
 
-            
-        }   
-        if(!this.game.inputTracker.isKeyDown("e")&& this.frame!==0)
+
+        }
+        if (!this.game.inputTracker.isKeyDown("e") && this.frame !== 0)
             this.animation(this.game.ctx);
 
-        if(!this.game.inputTracker.isKeyDown("e")&& this.frame===0)
-           this.frame =12;
+        if (!this.game.inputTracker.isKeyDown("e") && this.frame === 0)
+            this.frame = 12;
 
 
         if (this.game.inputTracker.isKeyDown(this.controls.right) && this.game.inputTracker.isKeyUp(this.controls.left))
@@ -117,26 +119,25 @@ export default class Player extends BaseGameObject {
 
         if (this.x < 0)
             this.x = 0;
-        else if ((this.x + this.width) > this.game.canvas.width/3)
-            this.x = this.game.canvas.width/3- this.width;
+        else if ((this.x + this.width) > this.game.canvas.width / 3)
+            this.x = this.game.canvas.width / 3 - this.width;
 
         if (this.y < 0)
             this.y = 0;
         else if ((this.y + this.height) > this.game.canvas.height)
             this.y = this.game.canvas.height - this.height;
-        
+
 
     }
 
-    animation(ctx)
-    {   
+    animation(ctx) {
 
-        if(this.gameFrame % this.staggerFrame ==0){
-            if(this.frame<12)
+        if (this.gameFrame % this.staggerFrame == 0) {
+            if (this.frame < this.maxAnimationFrame - 1)
                 this.frame++;
-            else 
+            else
                 this.frame = 0;
-            
+
         }
         this.gameFrame++;
     }
@@ -150,10 +151,11 @@ export default class Player extends BaseGameObject {
         this.game.ctx.fillStyle = "white";
 
 
-        ctx.drawImage(this.playerImage,0,this.frame * this.spriteHeight,this.spriteWidth,this.spriteHeight, this.x, this.y, this.spriteWidth,this.spriteHeight)
+        ctx.drawImage(this.playerImage, 0, this.frame * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight)
         console.log(this.frame)
-        ctx.fillText("Lives:"+this.lives, 200 ,60);
-        ctx.fillText("Kills:"+this.game.enemyCount, 200 ,100);
+        ctx.fillText("Record:" + this.record, 400, 80);
+        ctx.fillText("Lives:" + this.lives, 200, 60);
+        ctx.fillText("Kills:" + this.game.killCount, 200, 100);
 
     }
 }

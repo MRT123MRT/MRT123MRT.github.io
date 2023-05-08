@@ -11,13 +11,16 @@ function getRandomInt(min, max) {
 class Game {
 
     constructor() {
+        this.is
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.fillCanvas();
         this.gameObjects = [];
-        this.enemyCount = 0;
-        this.defaultLives = 50;
+        this.killCount = 0;
+        this.defaultLives = 30;
         this.isPause = true;
+        this.isGameOver = false;
+
         this.player = new Player(this,
             {
                 up: 'ArrowUp',
@@ -34,15 +37,16 @@ class Game {
         document.getElementById("resumeBtn").addEventListener("click", this.resume.bind(this));
         document.getElementById("startBtn").addEventListener("click", this.resume.bind(this));
 
+
         this.gameObjects.push(this.player);
         this.gameStarted = false;
 
         let iterator = 1;
-        let lines = 10;
+        const lines = 10;
         let speed = 1;
 
         setInterval(() => {
-            if (this.isPause == true) return;
+            if (this.isPause === true) return;
             if (iterator === lines)
                 iterator = 1;
 
@@ -53,9 +57,7 @@ class Game {
             iterator++;
             speed += 0.1;
 
-        }, 500 - speed)
-
-
+        }, 1000 - speed)
 
 
         this.inputTracker = new InputTracker();
@@ -74,13 +76,14 @@ class Game {
     }
 
     removeGameObject(gameObject) {
-        let index = this.gameObjects.indexOf(gameObject);
+        const index = this.gameObjects.indexOf(gameObject);
         if (index > -1) {
             this.gameObjects.splice(index, 1);
         }
     }
 
     resume() {
+        if (this.gameOver === true) return;
         console.log("resume");
         this.isPause = false
         document.getElementById("startPopup").classList.add("hidden");
@@ -94,13 +97,14 @@ class Game {
         document.getElementById("resumePopup").classList.remove("hidden");
     }
 
-    gameOver(){
+    gameOver() {
+        this.isGameOver = true;
         this.isPause = true;
         document.getElementById("gameOverPopup").classList.remove("hidden");
-        
-
-
+        document.getElementById("gameOverPopup").classList.add("game_over");
+        localStorage.setItem("record", this.player.record);
     }
+
     addGameObject(gameObject) {
         this.gameObjects.push(gameObject);
     }
@@ -121,7 +125,7 @@ class Game {
     update() {
         ``
 
-        if (this.isPause === true) return;
+        if (this.isPause === true || this.isGameOver === true) return;
 
         for (let gameObject of this.gameObjects) {
             gameObject.update();
@@ -131,8 +135,8 @@ class Game {
         for (let i = 0; i < this.gameObjects.length; i++) {
             for (let j = 0; j < this.gameObjects.length; j++) {
                 if (i != j) {
-                    let gameObject1 = this.gameObjects[i];
-                    let gameObject2 = this.gameObjects[j];
+                    const gameObject1 = this.gameObjects[i];
+                    const gameObject2 = this.gameObjects[j];
 
                     if (gameObject1?.inCollisionWith(gameObject2)) {
                         gameObject1?.onCollision(gameObject2);
