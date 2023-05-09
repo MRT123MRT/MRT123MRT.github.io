@@ -21,12 +21,10 @@ export default class BattleBlock extends BaseGameObject {
         this.bulletSpawnDefiner = 6000; //lower num-> less time between two enemy shots 
 
 
-        this.frame = 0; //which frame out of 12 is being drawn now
+        this.currentFrame = 0; //which frame out of 12 is being drawn now
         this.shooterImage = new Image();
         this.shooterImage.src = '../images/shooter.png';
-        this.spriteWidth = 123;
-        this.spriteHeight = 120;
-        this.staggerFrame = 8; //once every how many frames to update the animation frame of the player. (1) is normal speed animation, higher the num => slower animation
+        this.starggerFrames = 8; //once every how many frames to update the animation frame of the player. (1) is normal speed animation, higher the num => slower animation
         this.gameFrame = 0; //how many global gameframes passed
         this.defaultBulletSpeed = -10;
         this.maxAnimationFrame = 12;
@@ -94,11 +92,11 @@ export default class BattleBlock extends BaseGameObject {
 
     animation() {
 
-        if (this.gameFrame % this.staggerFrame === 0) {
-            if (this.frame < this.maxAnimationFrame - 1)
-                this.frame++;
+        if (this.gameFrame % this.starggerFrames === 0) {
+            if (this.currentFrame < this.maxAnimationFrame - 1)
+                this.currentFrame++;
             else
-                this.frame = 0;
+                this.currentFrame = 0;
 
         }
         this.gameFrame++;
@@ -114,7 +112,7 @@ export default class BattleBlock extends BaseGameObject {
         this.game.ctx.fillRect(this.x, this.y - 8, this.widthBar, this.heightBar);
 
 
-        ctx.drawImage(this.shooterImage, 1353 - (this.frame * this.spriteWidth), 0, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight)
+        ctx.drawImage(this.shooterImage, 1353 - (this.currentFrame * this.width), 0, this.width, this.height, this.x, this.y, this.width, this.height)
 
         this.game.ctx.fillText(this.lives, this.x + (this.width / 2), this.y + (this.height / 2))
 

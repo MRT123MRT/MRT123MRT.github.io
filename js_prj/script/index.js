@@ -11,7 +11,7 @@ function getRandomInt(min, max) {
 class Game {
 
     constructor() {
-        this.is
+
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.fillCanvas();
@@ -36,28 +36,19 @@ class Game {
 
         document.getElementById("resumeBtn").addEventListener("click", this.resume.bind(this));
         document.getElementById("startBtn").addEventListener("click", this.resume.bind(this));
-
+        window.addEventListener("blur", this.pause.bind(this))
 
         this.gameObjects.push(this.player);
         this.gameStarted = false;
 
-        let iterator = 1;
-        const lines = 10;
-        let speed = 1;
+
+        let battleBlockSpeed = 1;
 
         setInterval(() => {
             if (this.isPause === true) return;
-            if (iterator === lines)
-                iterator = 1;
-
-
-            this.gameObjects.push(new BattleBlock(this, getRandomInt(3, 10), canvas.width - 60, canvas.height / lines * iterator, speed));
-
-
-            iterator++;
-            speed += 0.1;
-
-        }, 1000 - speed)
+            this.gameObjects.push(new BattleBlock(this, getRandomInt(3, 10), canvas.width - 60, getRandomInt(80, this.canvas.height - 100), battleBlockSpeed));
+            battleBlockSpeed += 0.1;
+        }, 1000 - battleBlockSpeed)
 
 
         this.inputTracker = new InputTracker();
@@ -66,11 +57,14 @@ class Game {
         window.addEventListener('load', this.fillCanvas.bind(this));
 
         window.addEventListener('keyup', ((event) => {
-            if (event.key === ' ')
+            if (event.key === ' ') {
+                if (this.isGameOver)
+                    location.reload();
                 if (this.isPause)
                     this.resume();
                 else
                     this.pause();
+            }
         }).bind(this))
 
     }
@@ -105,11 +99,12 @@ class Game {
         localStorage.setItem("record", this.player.record);
     }
 
+
     addGameObject(gameObject) {
         this.gameObjects.push(gameObject);
     }
 
-    polosa() {
+    borderLine() {
         this.ctx.globalAlpha = 0.2;
         this.ctx.fillStyle = "#8ed1a0"
         this.ctx.fillRect((this.canvas.width / 3) - 10, 0, 10, this.canvas.height);
@@ -127,7 +122,7 @@ class Game {
 
         if (this.isPause === true || this.isGameOver === true) return;
 
-        for (let gameObject of this.gameObjects) {
+        for (const gameObject of this.gameObjects) {
             gameObject.update();
         }
 
@@ -152,9 +147,9 @@ class Game {
 
         this.fillCanvas();
         ctx.save();
-        this.polosa();
+        this.borderLine();
         ctx.restore();
-        for (let gameObject of this.gameObjects) {
+        for (const gameObject of this.gameObjects) {
             ctx.save();
             gameObject.draw(ctx);
             ctx.restore();

@@ -132,7 +132,7 @@ export default class Player extends BaseGameObject {
 
     animation(ctx) {
 
-        if (this.gameFrame % this.staggerFrame == 0) {
+        if (this.gameFrame % this.staggerFrame === 0) {
             if (this.frame < this.maxAnimationFrame - 1)
                 this.frame++;
             else
