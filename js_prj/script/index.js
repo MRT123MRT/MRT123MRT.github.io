@@ -15,7 +15,9 @@ class Game {
         this.canvas = document.getElementById('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.fillCanvas();
-        this.gameObjects = [];
+        //this.gameObjects = [];
+        this.bullets = [];
+        this.battleBlock = [];
         this.killCount = 0;
         this.defaultLives = 30;
         this.isPause = true;
@@ -40,7 +42,7 @@ class Game {
 
         this.gameObjects.push(this.player);
         this.gameStarted = false;
-
+        this.line = this.canvas.width / 3;
 
         let battleBlockSpeed = 1;
 
@@ -107,7 +109,7 @@ class Game {
     borderLine() {
         this.ctx.globalAlpha = 0.2;
         this.ctx.fillStyle = "#8ed1a0"
-        this.ctx.fillRect((this.canvas.width / 3) - 10, 0, 10, this.canvas.height);
+        this.ctx.fillRect((this.line) - 10, 0, 10, this.canvas.height);
     }
 
     fillCanvas() {

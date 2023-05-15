@@ -34,6 +34,7 @@ export default class BattleBlock extends BaseGameObject {
         this.widthBar = 100;
         this.heightBar = 10;
         this.color = "#e06253";
+        this.line = this.game.canvas.width / 3
     }
 
     inCollisionWith(gameObject) {
@@ -80,11 +81,11 @@ export default class BattleBlock extends BaseGameObject {
 
         if (this.x < 0 || this.x > window.innerWidth) {
             this.game.removeGameObject(this);
-        }
+        }                           
 
         this.x = this.x - this.speed;
 
-        if (this.x < (this.game.canvas.width / 3) - 20)
+        if (this.x < this.game.line - 20)
             this.game.gameOver();
 
         this.animation();

@@ -6,7 +6,7 @@ import BattleBlock from "./BattleBlock.js";
 export default class Player extends BaseGameObject {
     constructor(game, controls, color, lives) {
         super(game);
-
+        
         this.type = "Player";
         this.record = parseInt(localStorage.getItem("record")) || 0;
         this.controls = controls;
@@ -119,8 +119,8 @@ export default class Player extends BaseGameObject {
 
         if (this.x < 0)
             this.x = 0;
-        else if ((this.x + this.width) > this.game.canvas.width / 3)
-            this.x = this.game.canvas.width / 3 - this.width;
+        else if ((this.x + this.width) > this.game.line)
+            this.x = this.game.line - this.width;
 
         if (this.y < 0)
             this.y = 0;

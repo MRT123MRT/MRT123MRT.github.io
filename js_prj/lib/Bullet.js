@@ -57,5 +57,5 @@ export default class Bullet extends BaseGameObject {
         //ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.drawImage(this.bulletImage, this.x, this.y, this.width, this.height);
         ctx.restore();
-    }
+    }   
 }
