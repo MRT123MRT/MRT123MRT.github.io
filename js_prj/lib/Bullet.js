@@ -35,7 +35,7 @@ export default class Bullet extends BaseGameObject {
 
 
         if (gameObject.type !== this.parentType && this.parentType !== gameObject.parentType) {
-            this.game.removeGameObject(this);
+            this.game.removeBulletObject(this);
         }
 
     }
@@ -45,7 +45,7 @@ export default class Bullet extends BaseGameObject {
         this.x += this.speedX;
 
         if (this.x < 0 || this.x > window.innerWidth) {
-            this.game.removeGameObject(this);
+            this.game.removeBulletObject(this);
         }
     }
 

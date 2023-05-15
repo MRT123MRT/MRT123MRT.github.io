@@ -74,8 +74,7 @@ export default class Player extends BaseGameObject {
             this.lastBulletTime = new Date().getTime();
             //this.frame = 0;
             this.animation(this.game.ctx);
-            this.game.addGameObject(new Bullet(this.game, this.type, this.bulletSpeed, this.x + this.width - 45, this.y + this.height / 2 + 6));
-            console.log("AHAAAAAAA")
+            this.game.addBulletObject(new Bullet(this.game, this.type, this.bulletSpeed, this.x + this.width - 45, this.y + this.height / 2 + 6));
 
 
         }

@@ -17,7 +17,7 @@ class Game {
         this.fillCanvas();
         //this.gameObjects = [];
         this.bullets = [];
-        this.battleBlock = [];
+        this.battleBlocks = [];
         this.killCount = 0;
         this.defaultLives = 30;
         this.isPause = true;
@@ -40,7 +40,6 @@ class Game {
         document.getElementById("startBtn").addEventListener("click", this.resume.bind(this));
         window.addEventListener("blur", this.pause.bind(this))
 
-        this.gameObjects.push(this.player);
         this.gameStarted = false;
         this.line = this.canvas.width / 3;
 
@@ -48,7 +47,7 @@ class Game {
 
         setInterval(() => {
             if (this.isPause === true) return;
-            this.gameObjects.push(new BattleBlock(this, getRandomInt(3, 10), canvas.width - 60, getRandomInt(80, this.canvas.height - 100), battleBlockSpeed));
+            this.battleBlocks.push(new BattleBlock(this, getRandomInt(3, 10), canvas.width - 60, getRandomInt(80, this.canvas.height - 100), battleBlockSpeed));
             battleBlockSpeed += 0.1;
         }, 1000 - battleBlockSpeed)
 
@@ -71,10 +70,17 @@ class Game {
 
     }
 
-    removeGameObject(gameObject) {
-        const index = this.gameObjects.indexOf(gameObject);
+    removeBattleBlockObject(gameObject) {
+        const index = this.battleBlocks.indexOf(gameObject);
         if (index > -1) {
-            this.gameObjects.splice(index, 1);
+            this.battleBlocks.splice(index, 1);
+        }
+    }
+
+    removeBulletObject(gameObject) {
+        const index = this.bullets.indexOf(gameObject);
+        if (index > -1) {
+            this.bullets.splice(index, 1);
         }
     }
 
@@ -102,8 +108,8 @@ class Game {
     }
 
 
-    addGameObject(gameObject) {
-        this.gameObjects.push(gameObject);
+    addBulletObject(gameObject) {
+        this.bullets.push(gameObject);
     }
 
     borderLine() {
@@ -120,20 +126,45 @@ class Game {
     }
 
     update() {
-        ``
-
         if (this.isPause === true || this.isGameOver === true) return;
 
-        for (const gameObject of this.gameObjects) {
-            gameObject.update();
+        for (const gameObject of this.battleBlocks) { gameObject.update(); }
+        for (const gameObject of this.bullets) { gameObject.update(); }
+        this.player.update();
+
+
+
+        //check colosion for bullets and battleBlocks
+        for (let i = 0; i < this.battleBlocks.length; i++) {
+            for (let j = 0; j < this.bullets.length; j++) {
+                const gameObject1 = this.battleBlocks[i];
+                const gameObject2 = this.bullets[j];
+
+                if (gameObject1?.inCollisionWith(gameObject2)) {
+                    gameObject1?.onCollision(gameObject2);
+                    gameObject2?.onCollision(gameObject1);
+                }
+            }
         }
 
 
-        for (let i = 0; i < this.gameObjects.length; i++) {
-            for (let j = 0; j < this.gameObjects.length; j++) {
+        //check colosion for palyer and bullets
+        for (let i = 0; i < this.bullets.length; i++) {
+            const gameObject1 = this.player;
+            const gameObject2 = this.bullets[i];
+
+            if (gameObject1?.inCollisionWith(gameObject2) || gameObject2?.inCollisionWith(gameObject1)) {
+                gameObject1?.onCollision(gameObject2);
+                gameObject2?.onCollision(gameObject1);
+            }
+        }
+
+
+        for (let i = 0; i < this.bullets.length; i++) {
+            for (let j = 0; j < this.bullets.length; j++) {
                 if (i != j) {
-                    const gameObject1 = this.gameObjects[i];
-                    const gameObject2 = this.gameObjects[j];
+                    const gameObject1 = this.bullets[i];
+                    const gameObject2 = this.bullets[j];
 
                     if (gameObject1?.inCollisionWith(gameObject2)) {
                         gameObject1?.onCollision(gameObject2);
@@ -151,12 +182,22 @@ class Game {
         ctx.save();
         this.borderLine();
         ctx.restore();
-        for (const gameObject of this.gameObjects) {
+
+        for (const gameObject of this.bullets) {
             ctx.save();
             gameObject.draw(ctx);
             ctx.restore();
         }
 
+        for (const gameObject of this.battleBlocks) {
+            ctx.save();
+            gameObject.draw(ctx);
+            ctx.restore();
+        }
+
+        ctx.save();
+        this.player.draw(ctx);
+        ctx.restore();
 
     }
 

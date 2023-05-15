@@ -54,7 +54,7 @@ export default class BattleBlock extends BaseGameObject {
             this.widthBar = this.widthBar - (100 / this.maxHealth);
 
             if (this.lives <= 0) {
-                this.game.removeGameObject(this);
+                this.game.removeBattleBlockObject(this);
 
                 this.game.killCount++;
                 if (this.game.killCount > this.game.player.record) {
@@ -75,12 +75,12 @@ export default class BattleBlock extends BaseGameObject {
         if ((new Date().getTime() - this.lastBulletTime) > this.bulletDelay) {
             this.bulletDelay = Math.random() * this.bulletSpawnDefiner;
             this.lastBulletTime = new Date().getTime();
-            this.game.addGameObject(new Bullet(this.game, this.type, this.defaultBulletSpeed, this.x, this.y + this.height / 2 + 10));
+            this.game.addBulletObject(new Bullet(this.game, this.type, this.defaultBulletSpeed, this.x, this.y + this.height / 2 + 10));
 
         }
 
         if (this.x < 0 || this.x > window.innerWidth) {
-            this.game.removeGameObject(this);
+            this.game.removeBattleBlockObject(this);
         }                           
 
         this.x = this.x - this.speed;
