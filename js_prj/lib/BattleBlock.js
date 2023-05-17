@@ -28,13 +28,21 @@ export default class BattleBlock extends BaseGameObject {
         this.gameFrame = 0; //how many global gameframes passed
         this.defaultBulletSpeed = -10;
         this.maxAnimationFrame = 12;
+        this.widthAnnimationSprite = 1476
+        this.shootingYposition = this.y + this.height / 2 + 10; // the y position relatively the frame to shoot the bullet from
 
         this.maxHealth = lives;
         this.lives = lives;
-        this.widthBar = 100;
-        this.heightBar = 10;
+
+        this.widthLife = 100;// red width of the lives
+        this.heightLife = 10;// red height of the lives
+
+        this.widthBar = 100; //the width of th whole life bar
+        this.heightBar = 10; //the height of th whole life bar
+        this.borderLifeBar = 3;
+
         this.color = "#e06253";
-        this.line = this.game.canvas.width / 3
+        //this.lineXposition = this.game.canvas.width / 3
     }
 
     inCollisionWith(gameObject) {
@@ -51,7 +59,7 @@ export default class BattleBlock extends BaseGameObject {
 
         if (gameObject.type === "Bullet" && gameObject.parentType === "Player") {
             this.lives--;
-            this.widthBar = this.widthBar - (100 / this.maxHealth);
+            this.widthLife = this.widthLife - (100 / this.maxHealth);
 
             if (this.lives <= 0) {
                 this.game.removeBattleBlockObject(this);
@@ -75,17 +83,17 @@ export default class BattleBlock extends BaseGameObject {
         if ((new Date().getTime() - this.lastBulletTime) > this.bulletDelay) {
             this.bulletDelay = Math.random() * this.bulletSpawnDefiner;
             this.lastBulletTime = new Date().getTime();
-            this.game.addBulletObject(new Bullet(this.game, this.type, this.defaultBulletSpeed, this.x, this.y + this.height / 2 + 10));
+            this.game.addBulletObject(new Bullet(this.game, this.type, this.defaultBulletSpeed, this.x, this.shootingYposition)); //
 
         }
 
         if (this.x < 0 || this.x > window.innerWidth) {
             this.game.removeBattleBlockObject(this);
-        }                           
+        }
 
         this.x = this.x - this.speed;
 
-        if (this.x < this.game.line - 20)
+        if (this.x < this.game.lineXposition - 20) // the minus 20 is the mooving 20 px to the left of the enemy to make the game over.
             this.game.gameOver();
 
         this.animation();
@@ -106,16 +114,16 @@ export default class BattleBlock extends BaseGameObject {
 
     draw(ctx) {
         super.draw(ctx);
-        this.game.ctx.lineWidth = 3;
+        this.game.ctx.lineWidth = this.borderLifeBar;
         this.game.ctx.strokeStyle = "#FFFFFF";
-        ctx.strokeRect(this.x, this.y - 8, 100, 10);
+        ctx.strokeRect(this.x, this.y, this.widthBar, this.heightBar);
         this.game.ctx.fillStyle = this.color;
-        this.game.ctx.fillRect(this.x, this.y - 8, this.widthBar, this.heightBar);
+        this.game.ctx.fillRect(this.x, this.y, this.widthLife, this.heightBar);
 
 
-        ctx.drawImage(this.shooterImage, 1353 - (this.currentFrame * this.width), 0, this.width, this.height, this.x, this.y, this.width, this.height)
+        ctx.drawImage(this.shooterImage, this.widthAnnimationSprite - this.width - (this.currentFrame * this.width), 0, this.width, this.height, this.x, this.y, this.width, this.height)
 
-        this.game.ctx.fillText(this.lives, this.x + (this.width / 2), this.y + (this.height / 2))
+       
 
     }
 }

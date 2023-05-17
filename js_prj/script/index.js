@@ -22,6 +22,15 @@ class Game {
         this.defaultLives = 30;
         this.isPause = true;
         this.isGameOver = false;
+        this.minBattelBlockXp = 3;
+        this.maxBattelBlockXp = 10;
+        this.minYspawn = 80;
+        this.maxYspawn = this.canvas.height - 100;
+
+        this.lineXposition = this.canvas.width / 3;
+        this.lineTransparency = 0.2;
+        this.lineWidth = 10;
+        this.lineYposition = 0;
 
         this.player = new Player(this,
             {
@@ -41,15 +50,14 @@ class Game {
         window.addEventListener("blur", this.pause.bind(this))
 
         this.gameStarted = false;
-        this.line = this.canvas.width / 3;
+
 
         let battleBlockSpeed = 1;
-
         setInterval(() => {
             if (this.isPause === true) return;
-            this.battleBlocks.push(new BattleBlock(this, getRandomInt(3, 10), canvas.width - 60, getRandomInt(80, this.canvas.height - 100), battleBlockSpeed));
+            this.battleBlocks.push(new BattleBlock(this, getRandomInt(this.minBattelBlockXp, this.maxBattelBlockXp), canvas.width, getRandomInt(this.minYspawn, this.maxYspawn), battleBlockSpeed));
             battleBlockSpeed += 0.1;
-        }, 1000 - battleBlockSpeed)
+        }, 1000)
 
 
         this.inputTracker = new InputTracker();
@@ -113,9 +121,9 @@ class Game {
     }
 
     borderLine() {
-        this.ctx.globalAlpha = 0.2;
+        this.ctx.globalAlpha = this.lineTransparency;
         this.ctx.fillStyle = "#8ed1a0"
-        this.ctx.fillRect((this.line) - 10, 0, 10, this.canvas.height);
+        this.ctx.fillRect(this.lineXposition - this.lineWidth, this.lineYposition, this.lineWidth, this.canvas.height);
     }
 
     fillCanvas() {
@@ -128,43 +136,14 @@ class Game {
     update() {
         if (this.isPause === true || this.isGameOver === true) return;
 
-        for (const gameObject of this.battleBlocks) { gameObject.update(); }
-        for (const gameObject of this.bullets) { gameObject.update(); }
-        this.player.update();
+        const gameObjects = [...this.battleBlocks, ...this.bullets, this.player];
+        for (const gameObject of this.gameObjects) { gameObject.update(); }
 
-
-
-        //check colosion for bullets and battleBlocks
-        for (let i = 0; i < this.battleBlocks.length; i++) {
-            for (let j = 0; j < this.bullets.length; j++) {
-                const gameObject1 = this.battleBlocks[i];
-                const gameObject2 = this.bullets[j];
-
-                if (gameObject1?.inCollisionWith(gameObject2)) {
-                    gameObject1?.onCollision(gameObject2);
-                    gameObject2?.onCollision(gameObject1);
-                }
-            }
-        }
-
-
-        //check colosion for palyer and bullets
-        for (let i = 0; i < this.bullets.length; i++) {
-            const gameObject1 = this.player;
-            const gameObject2 = this.bullets[i];
-
-            if (gameObject1?.inCollisionWith(gameObject2) || gameObject2?.inCollisionWith(gameObject1)) {
-                gameObject1?.onCollision(gameObject2);
-                gameObject2?.onCollision(gameObject1);
-            }
-        }
-
-
-        for (let i = 0; i < this.bullets.length; i++) {
-            for (let j = 0; j < this.bullets.length; j++) {
+        for (let i = 0; i < gameObjects; i++) {
+            for (let j = 0; j < gameObjects; j++) {
                 if (i != j) {
-                    const gameObject1 = this.bullets[i];
-                    const gameObject2 = this.bullets[j];
+                    const gameObject1 = this.gameObjects[i];
+                    const gameObject2 = this.gameObjects[j];
 
                     if (gameObject1?.inCollisionWith(gameObject2)) {
                         gameObject1?.onCollision(gameObject2);

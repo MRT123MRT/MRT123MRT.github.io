@@ -6,7 +6,7 @@ import BattleBlock from "./BattleBlock.js";
 export default class Player extends BaseGameObject {
     constructor(game, controls, color, lives) {
         super(game);
-        
+
         this.type = "Player";
         this.record = parseInt(localStorage.getItem("record")) || 0;
         this.controls = controls;
@@ -39,6 +39,16 @@ export default class Player extends BaseGameObject {
         this.staggerFrame = 1;
         this.gameFrame = 0;
         this.maxAnimationFrame = 13;
+
+
+        this.recoerdLabelPosX = 400;
+        this.recoerdLabelPosY = 80;
+
+        this.livesLabelPosX = 200;
+        this.livesLabelPosY = 60;
+
+        this.killsLabelPosX = 200;
+        this.killsLabelPosY = 100;
 
 
 
@@ -118,8 +128,8 @@ export default class Player extends BaseGameObject {
 
         if (this.x < 0)
             this.x = 0;
-        else if ((this.x + this.width) > this.game.line)
-            this.x = this.game.line - this.width;
+        else if ((this.x + this.width) > this.game.lineXposition)
+            this.x = this.game.lineXposition - this.width;
 
         if (this.y < 0)
             this.y = 0;
@@ -152,9 +162,9 @@ export default class Player extends BaseGameObject {
 
         ctx.drawImage(this.playerImage, 0, this.frame * this.spriteHeight, this.spriteWidth, this.spriteHeight, this.x, this.y, this.spriteWidth, this.spriteHeight)
         console.log(this.frame)
-        ctx.fillText("Record:" + this.record, 400, 80);
-        ctx.fillText("Lives:" + this.lives, 200, 60);
-        ctx.fillText("Kills:" + this.game.killCount, 200, 100);
+        ctx.fillText("Record:" + this.record, this.recoerdLabelPosX, this.recoerdLabelPosY);
+        ctx.fillText("Lives:" + this.lives, this.livesLabelPosX, this.livesLabelPosY);
+        ctx.fillText("Kills:" + this.game.killCount, this.killsLabelPosX, this.killsLabelPosY);
 
     }
 }
