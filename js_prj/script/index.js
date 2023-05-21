@@ -137,7 +137,7 @@ class Game {
         if (this.isPause === true || this.isGameOver === true) return;
 
         const gameObjects = [...this.battleBlocks, ...this.bullets, this.player];
-        for (const gameObject of this.gameObjects) { gameObject.update(); }
+        for (const gameObject of gameObjects) { gameObject.update(); }
 
         for (let i = 0; i < gameObjects; i++) {
             for (let j = 0; j < gameObjects; j++) {
