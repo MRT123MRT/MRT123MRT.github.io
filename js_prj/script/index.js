@@ -139,11 +139,11 @@ class Game {
         const gameObjects = [...this.battleBlocks, ...this.bullets, this.player];
         for (const gameObject of gameObjects) { gameObject.update(); }
 
-        for (let i = 0; i < gameObjects; i++) {
-            for (let j = 0; j < gameObjects; j++) {
+        for (let i = 0; i < gameObjects.length; i++) {
+            for (let j = 0; j < gameObjects.length; j++) {
                 if (i != j) {
-                    const gameObject1 = this.gameObjects[i];
-                    const gameObject2 = this.gameObjects[j];
+                    const gameObject1 = gameObjects[i];
+                    const gameObject2 = gameObjects[j];
 
                     if (gameObject1?.inCollisionWith(gameObject2)) {
                         gameObject1?.onCollision(gameObject2);
